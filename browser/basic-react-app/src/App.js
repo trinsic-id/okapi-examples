@@ -1,7 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import { DIDKey, GenerateKeyRequest } from '@trinsic/okapi';
 
 function App() {
+  // DIDKey.generate(new GenerateKeyRequest()).then(response =>{
+  //   console.log(response.getDidDocument().toJavaScript());
+  // });
   return (
     <div className="App">
       <header className="App-header">
