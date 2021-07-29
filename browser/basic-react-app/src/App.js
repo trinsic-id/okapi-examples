@@ -1,11 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
-import { DIDKey, GenerateKeyRequest } from '@trinsic/okapi';
 
 function App() {
-  // DIDKey.generate(new GenerateKeyRequest()).then(response =>{
-  //   console.log(response.getDidDocument().toJavaScript());
-  // });
+  import('@trinsic/okapi').then(module => {
+    const { DIDKey, GenerateKeyRequest } = module;
+
+    DIDKey.generate(new GenerateKeyRequest()).then(response =>{
+      console.log(response.getDidDocument().toJavaScript());
+    });
+  });
+
   return (
     <div className="App">
       <header className="App-header">
@@ -21,6 +25,9 @@ function App() {
         >
           Learn React
         </a>
+        <p className="smaller">
+          (open developer console to see output)
+        </p>
       </header>
     </div>
   );
