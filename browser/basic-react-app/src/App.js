@@ -1,13 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { DIDKey, GenerateKeyRequest } from "@trinsic/okapi";
 
 function App() {
-  import('@trinsic/okapi').then(module => {
-    const { DIDKey, GenerateKeyRequest } = module;
-
-    DIDKey.generate(new GenerateKeyRequest()).then(response =>{
-      console.log(response.getDidDocument().toJavaScript());
-    });
+  DIDKey.generate(new GenerateKeyRequest()).then((response) => {
+    console.log(response.getDidDocument().toJavaScript());
   });
 
   return (
@@ -17,17 +14,10 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
           Learn React
         </a>
-        <p className="smaller">
-          (open developer console to see output)
-        </p>
+        <p className="smaller">(open developer console to see output)</p>
       </header>
     </div>
   );
