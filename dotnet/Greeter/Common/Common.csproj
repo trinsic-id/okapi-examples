@@ -4,11 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Library\Okapi\Okapi.csproj" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Multiformats.Base" Version="2.0.2" />
+    <PackageReference Include="Okapi.Net" Version="1.0.0" />
   </ItemGroup>
 </Project>
