@@ -1,46 +1,45 @@
-﻿using Multiformats.Base;
+﻿using System;
+using Multiformats.Base;
 using Okapi.Keys;
 
 namespace Common
 {
     public static class Alice
     {
-        const string KeyId = "did:key:z6LSduVJgrLfZwnDtASwGa4VMjvTAHYtpHrD7vupLmxyBnJ4#z6LSduVJgrLfZwnDtASwGa4VMjvTAHYtpHrD7vupLmxyBnJ4";
+        const string KeyId = "did:key:z6LSskw3r3441B8YnhcB1LKxmRqpEiyZH3Prpb6No1fHTze6#z6LSskw3r3441B8YnhcB1LKxmRqpEiyZH3Prpb6No1fHTze6";
         public static JsonWebKey SecretKey = new JsonWebKey
         {
             Kid = KeyId,
             Kty = "OKP",
             Crv = "X25519",
-            D = Multibase.Base64.Encode(Multibase.Base58.Decode("BEyxtiSbfeXZxBmgg9et5oo3nYMh11iQ8TVvJSrKJQzQ"))
+            D = "oLio1cRmNIgQePHHJFeCdw0-j4ZtJBH0HVQU8fXahVs"
         };
         public static JsonWebKey PublicKey = new JsonWebKey
         {
             Kid = KeyId,
             Kty = "OKP",
             Crv = "X25519",
-            X = Multibase.Base64.Encode(Multibase.Base58.Decode("3EK9AYXoUV4Unn5AjvYY39hyK91n7gg4ExC8rKKSUQXJ")),
-            Y = ""
+            X = "7vLvUiaXEUgajINpIomBTwQtQCnf-r7cptpKTEWHzjs"
         };
     }
 
     public static class Bob
     {
-        const string KeyId = "did:key:z6LSkNeNYQ7W1wFb1Smrxir7vTKKLMe1CgYXj8g26oVW7CjX#z6LSkNeNYQ7W1wFb1Smrxir7vTKKLMe1CgYXj8g26oVW7CjX";
+        const string KeyId = "did:key:z6LSgKhoYDRJJaJ84wHjnW67r8RTaLExHhzrFZgd3Hh1md7j#z6LSgKhoYDRJJaJ84wHjnW67r8RTaLExHhzrFZgd3Hh1md7j";
 
         public static JsonWebKey SecretKey = new JsonWebKey
         {
             Kid = KeyId,
             Kty = "OKP",
             Crv = "X25519",
-            D = Multibase.Base64.Encode(Multibase.Base58.Decode("G5UdbKAt8ux4CgFySveHQLbjY9GJqxsXhFuFkDtQVuSo"))
+            D = "cLH0xA7mdSp5zcxSOVepnMuFtJSWZtRI0PoR2cET420"
         };
         public static JsonWebKey PublicKey = new JsonWebKey
         {
             Kid = KeyId,
             Kty = "OKP",
             Crv = "X25519",
-            X = Multibase.Base64.Encode(Multibase.Base58.Decode("9hUD26JdvUXqv4Q6S5LAbs6qVD6tW5NNr9xLcLqyPpxm")),
-            Y = ""
+            X = "RQvhX5wPpmHdd97FxvC_xK3GB0VpyLhN5xQN45EwjXY"
         };
     }
 }

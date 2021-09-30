@@ -10,7 +10,7 @@ using Pbmse;
 
 namespace Server
 {
-    public class DIDCommEncryptedService : SecureExample.SecureExampleBase
+    public class SecureExampleService : SecureExample.SecureExampleBase
     {
         public override Task<EncryptedMessage> Unary(EncryptedMessage request, ServerCallContext context)
         {
