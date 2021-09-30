@@ -1,5 +1,5 @@
-﻿using DIDComm.Messaging;
-using Google.Protobuf;
+﻿using Google.Protobuf;
+using Okapi.Transport;
 
 namespace Client
 {

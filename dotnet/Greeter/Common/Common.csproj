@@ -6,6 +6,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Multiformats.Base" Version="2.0.2" />
-    <PackageReference Include="Okapi.Net" Version="1.0.0" />
+    <PackageReference Include="Okapi.Net" Version="1.0.1-preview.1" />
   </ItemGroup>
 </Project>
