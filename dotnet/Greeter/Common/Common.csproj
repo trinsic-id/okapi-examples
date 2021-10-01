@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Multiformats.Base" Version="2.0.2" />
+    <PackageReference Include="Okapi.Net" Version="1.0.1-preview.1" />
+  </ItemGroup>
+</Project>
