@@ -1,0 +1,17 @@
+{
+  "name": "oberon-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@trinsic/okapi": "^1.0.1"
+  },
+  "devDependencies": {
+    "ts-node": "^10.4.0"
+  }
+}
