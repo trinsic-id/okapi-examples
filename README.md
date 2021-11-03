@@ -6,6 +6,7 @@ Example projects for using Okapi toolset in every language
 
 - Node
   - [Basic example](node/basic)
+  - [Oberon example](node/oberon-example)
 - Browser
   - [Basic example w/ Webpack](browser/basic-webpack)
   - [Basic example w/ React](browser/basic-react-app)
