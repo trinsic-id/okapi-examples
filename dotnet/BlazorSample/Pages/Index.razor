@@ -1,0 +1,25 @@
+﻿@page "/"
+
+@using Okapi.Keys;
+@using Okapi.Keys.V1;
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="GenerateKeypair">Generate BLS keypair</button>
+
+@code {
+    private int currentCount = 0;
+
+    private void GenerateKeypair()
+    {
+        var response = DIDKey.Generate(new GenerateKeyRequest { KeyType = KeyType.Bls12381G1G2 });
+
+        Console.WriteLine(response);
+    }
+}
