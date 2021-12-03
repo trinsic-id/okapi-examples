@@ -2,24 +2,149 @@
 
 @using Okapi.Keys;
 @using Okapi.Keys.V1;
+@using Okapi.Security;
+@using Okapi.Security.V1;
+@using System.Text.Json;
+@using Google.Protobuf;
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<p role="status">Current count: @currentCount</p>
+<h1>Hello, you!</h1>
+<p>
+    Welcome to Okapi in Blazor!
+</p>
 
 <button class="btn btn-primary" @onclick="GenerateKeypair">Generate BLS keypair</button>
+<button class="btn btn-primary" @onclick="RunOberonDemo">Run Oberon demo</button>
+
+<div class="small m-3">
+    <pre style="text-overflow: ellipsis; width: 700px;" class="text-monospace text-success">
+@textLog
+    </pre>
+</div>
 
 @code {
-    private int currentCount = 0;
+    private string textLog = "";
 
     private void GenerateKeypair()
     {
         var response = DIDKey.Generate(new GenerateKeyRequest { KeyType = KeyType.Bls12381G1G2 });
 
-        Console.WriteLine(response);
+        var documentJson = JsonFormatter.Default.Format(response.DidDocument);
+        var document = JsonSerializer.Deserialize<JsonElement>(documentJson);
+        textLog = JsonSerializer.Serialize(document, new JsonSerializerOptions { WriteIndented = true });
+    }
+
+    private void RunOberonDemo()
+    {
+        textLog = "";
+        
+        // Issuer generates oberon key pair
+        var key = Oberon.CreateKey(new CreateOberonKeyRequest());
+
+        AppendLine("Generated Oberon keypair");
+
+        var data = ByteString.CopyFromUtf8("alice");
+        var nonce = ByteString.CopyFromUtf8("1234");
+
+        // blinding code to be used by issuer and given to holder
+        // to transfer the token securely
+        var issuer_2fa = ByteString.CopyFromUtf8("issuer code");
+
+        CreateOberonTokenRequest tokenRequest = new()
+        {
+            Data = data,
+            Sk = key.Sk
+        };
+        tokenRequest.Blinding.Add(issuer_2fa);
+
+        var blindedToken = Oberon.CreateToken(tokenRequest);
+
+        AppendLine($"Create token for 'alice' with blinding");
+
+        // Holder unblinds the token
+        UnBlindOberonTokenRequest unblindRequest = new() { Token = blindedToken.Token };
+        unblindRequest.Blinding.Add(issuer_2fa);
+
+        var token = Oberon.UnblindToken(unblindRequest);
+
+        AppendLine("Holder unblinds the token");
+
+        // Holder prepares a proof without blinding
+        var proof = Oberon.CreateProof(new CreateOberonProofRequest
+        {
+            Data = data,
+            Nonce = nonce,
+            Token = token.Token
+        });
+
+        AppendLine("Holder creates a proof");
+
+        // Verifier verifies the proof
+        var result = Oberon.VerifyProof(new VerifyOberonProofRequest
+        {
+            Data = data,
+            Nonce = nonce,
+            Pk = key.Pk,
+            Proof = proof.Proof
+        });
+
+        AppendLine("Verifier verifies proof");
+
+        // Holder blinds the token with a personal pin
+        var userPin = ByteString.CopyFromUtf8("0042");
+        BlindOberonTokenRequest blindRequest = new() { Token = token.Token };
+        blindRequest.Blinding.Add(userPin);
+
+        var userBlindedToken = Oberon.BlindToken(blindRequest);
+
+        // Holder prepares a proof using the pin blinding
+        CreateOberonProofRequest proofRequest = new()
+        {
+            Data = data,
+            Nonce = nonce,
+            Token = userBlindedToken.Token
+        };
+        proofRequest.Blinding.Add(userPin);
+
+        proof = Oberon.CreateProof(proofRequest);
+
+        // Verifier verifies the proof
+        result = Oberon.VerifyProof(new VerifyOberonProofRequest
+        {
+            Data = data,
+            Nonce = nonce,
+            Pk = key.Pk,
+            Proof = proof.Proof
+        });
+
+        @* Assert.True(result.Valid); *@
+
+        // Bad actor creates a proof with incorrect blinding pin
+        proofRequest = new()
+        {
+            Data = data,
+            Nonce = nonce,
+            Token = userBlindedToken.Token
+        };
+        proofRequest.Blinding.Add(ByteString.CopyFromUtf8("invalid pin"));
+
+        proof = Oberon.CreateProof(proofRequest);
+
+        // Verifier tries to verify proof, fails
+        result = Oberon.VerifyProof(new VerifyOberonProofRequest
+        {
+            Data = data,
+            Nonce = nonce,
+            Pk = key.Pk,
+            Proof = proof.Proof
+        });
+
+        @* Assert.False(result.Valid); *@
+    }
+
+    private void AppendLine(string message)
+    {
+        textLog += $"[{DateTime.Now.ToShortTimeString()}] {message}\n";
     }
 }

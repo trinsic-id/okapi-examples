@@ -106,3 +106,5 @@ dist
 browser/.DS_Store
 
 .vs/
+
+.ionide/
