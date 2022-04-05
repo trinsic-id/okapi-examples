@@ -1,6 +1,7 @@
 ﻿using System;
 using Multiformats.Base;
 using Okapi.Keys;
+using Okapi.Keys.V1;
 
 namespace Common
 {
