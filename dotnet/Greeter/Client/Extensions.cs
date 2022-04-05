@@ -1,5 +1,6 @@
 ﻿using Google.Protobuf;
 using Okapi.Transport;
+using Okapi.Transport.V1;
 
 namespace Client
 {

@@ -7,7 +7,10 @@ using Grpc.Net.Client;
 using Grpc.Net.Client.Web;
 using System.Diagnostics;
 using Okapi.Examples;
+using Okapi.Examples.V1;
 using Okapi.Transport;
+using Okapi.Transport.V1;
+using Pbmse.V1;
 
 namespace Client
 {
@@ -18,7 +21,7 @@ namespace Client
             AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
 
             // Get reference to didcomm service with encryption endpoints
-            var client = new SecureExample.SecureExampleClient(
+            var client = new SecureExampleService.SecureExampleServiceClient(
                 channel: GrpcChannel.ForAddress("http://localhost:5000",
                 channelOptions: new GrpcChannelOptions { HttpHandler = new GrpcWebHandler(new HttpClientHandler()) }));
 
@@ -33,7 +36,7 @@ namespace Client
                 Console.Write("<Alice> ");
                 var message = new BasicMessage { Text = Console.ReadLine() };
                 stopwatch.Start();
-                var encryptedMessage = DIDComm.Pack(new PackRequest { ReceiverKey = Bob.PublicKey, SenderKey = Alice.SecretKey, Plaintext = message.ToByteString() });
+                var encryptedMessage = DIDComm.Pack(new PackRequest { ReceiverKey = Bob.PublicKey, SenderKey = Alice.SecretKey, Plaintext = message.ToByteString(), Mode = EncryptionMode.Direct});
 
                 var response = await client.UnaryAsync(encryptedMessage.Message);
                 var decryptedResponse = DIDComm.Unpack(new UnpackRequest { Message = response, ReceiverKey = Alice.SecretKey, SenderKey = Bob.PublicKey });
