@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run": "npx ts-node index.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@trinsic/okapi": "^1.0.1"
+    "@trinsic/okapi-node": "^1.6.1-rc1",
+    "protobufjs": "^6.11.3"
   },
   "devDependencies": {
-    "ts-node": "^10.4.0"
+    "ts-node": "^10.8.1"
   }
 }
