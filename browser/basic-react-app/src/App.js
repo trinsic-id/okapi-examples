@@ -1,10 +1,10 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { DIDKey, GenerateKeyRequest } from "@trinsic/okapi";
+import { DIDKey, GenerateKeyRequest } from "@trinsic/okapi-web";
 
 function App() {
-  DIDKey.generate(new GenerateKeyRequest()).then((response) => {
-    console.log(response.getDidDocument().toJavaScript());
+  DIDKey.generate(GenerateKeyRequest.fromPartial({})).then((response) => {
+    console.log(response.didDocument);
   });
 
   return (

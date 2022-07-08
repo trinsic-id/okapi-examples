@@ -108,3 +108,6 @@ browser/.DS_Store
 .vs/
 
 .ionide/
+browser/basic-webpack/.idea/
+node/.idea/
+browser/basic-react-app/.idea/
