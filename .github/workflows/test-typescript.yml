@@ -37,9 +37,16 @@ jobs:
           npm run demo
         shell: pwsh
         working-directory: ./node
-      - name: Build Browser Demo
+      - name: Build Basic Webpack Demo
         run: |
           npm install
-          npm run test
+          npm run build
         shell: pwsh
-        working-directory: ./browser/basic-react-app
+        working-directory: ./browser/basic-webpack
+      # TODO - Enable this @MichaelEdwardBlack
+      # - name: Build Browser Demo
+      #   run: |
+      #     npm install
+      #     npm run test
+      #   shell: pwsh
+      #   working-directory: ./browser/basic-react-app
