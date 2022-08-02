@@ -17,7 +17,7 @@ on:
       - ".github/workflows/*typescript*"
 
 jobs:
-  test_node:
+  test_typescript:
     name: Build Node & Browser Samples
     runs-on: ${{ matrix.os }}
     strategy:
