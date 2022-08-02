@@ -1,1 +1,1 @@
-trinsic_okapi==1.0.5
+trinsic_okapi==1.6.0
