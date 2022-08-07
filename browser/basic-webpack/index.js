@@ -1,12 +1,10 @@
-import { DIDKey, KeyType, GenerateKeyRequest } from "@trinsic/okapi";
+import { DIDKey, KeyType, GenerateKeyRequest } from "@trinsic/okapi-web";
 
 async function generateKey() {
-    var request = new GenerateKeyRequest();
-    request.setKeyType(KeyType.ED25519);
+    const request = GenerateKeyRequest.fromPartial({keyType: KeyType.KEY_TYPE_ED25519})
+    let response = await DIDKey.generate(request);
 
-    var response = await DIDKey.generate(request);
-
-    var didDocument = response.getDidDocument().toJavaScript();
+    let didDocument = response.didDocument;
     console.log(didDocument);
 
     document.getElementById("did-document").innerText = JSON.stringify(didDocument, null, "\t");
