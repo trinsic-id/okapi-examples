@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@trinsic/okapi-node": "^1.6.1-rc1",
-    "protobufjs": "^6.11.3"
+    "protobufjs": "^7.0.0"
   },
   "devDependencies": {
     "ts-node": "10.9.1"
